@@ -1,0 +1,17 @@
+version: '3'
+services:
+   db:
+      image: mysql:8.4
+      # 이전의 command: --default-authentication-plugin=mysql_native_password 라인을 제거합니다.
+      environment:
+         MYSQL_DATABASE: 'emotion-tracker'
+         MYSQL_USER: 'etadmin'
+         MYSQL_PASSWORD: 'kdh1234'
+         MYSQL_ROOT_PASSWORD: 'kdh1234'
+      ports:
+         - '3306:3306'
+      volumes:
+         - './my.cnf:/etc/mysql/conf.d/my.cnf'
+         - 'mysqldata:/var/lib/mysql'
+volumes:
+   mysqldata:
