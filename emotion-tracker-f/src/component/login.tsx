@@ -105,7 +105,7 @@ const Login: React.FC = () => {
                </div>
                <div>
                   <input
-                     type="text"
+                     type="password"
                      placeholder="패스워드를 입력하세요"
                      value={password}
                      onChange={e => setPassword(e.target.value)}

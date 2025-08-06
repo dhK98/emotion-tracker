@@ -9,4 +9,8 @@ export class CreateEmotionDto {
     @IsOptional()
     @IsString()
     reason?: string
+
+    @IsString()
+    @IsNotEmpty()
+    date: string
 }

@@ -15,6 +15,7 @@ export class User {
     @Column({ nullable: false })
     name: string;
 
-    @OneToMany(() => Emotion, (emotionData) => emotionData.user)
-    emotionData: Emotion[];
+    // 관계 이름 변경: emotionData -> emotions
+    @OneToMany(() => Emotion, (emotion) => emotion.user)
+    emotions: Emotion[]; // Emotion 엔티티의 'user' 필드와 연결
 }
