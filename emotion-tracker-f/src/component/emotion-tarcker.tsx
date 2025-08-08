@@ -591,24 +591,24 @@ const EmotionTracker: React.FC = () => {
                                             const percentage = totalDays > 0 ? Math.round((count / totalDays) * 100) : 0;
 
                                             return (
-                                             <div key={key}>
-                                                <div  className="space-y-2">
+                                                <div key={key} className="space-y-2">
                                                     <div className="flex items-center justify-between">
-                                                        <div className="w-3 h-3 rounded" style={{ backgroundColor: emotion.color }}></div>
-                                                        <span className="text-sm text-gray-700">{emotion.label}</span>
+                                                        <div className="flex items-center space-x-2">
+                                                            <div className="w-3 h-3 rounded" style={{ backgroundColor: emotion.color }}></div>
+                                                            <span className="text-sm text-gray-700">{emotion.label}</span>
+                                                        </div>
+                                                        <span className="text-sm font-medium text-gray-900">
+                                                            {count}일 ({percentage}%)
+                                                        </span>
                                                     </div>
-                                                    <span className="text-sm font-medium text-gray-900">
-                                                        {count}일 ({percentage}%)
-                                                    </span>
-                                                </div>
-                                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                                    <div
-                                                        className="h-2 rounded-full transition-all duration-300"
-                                                        style={{
-                                                            backgroundColor: emotion.color,
-                                                            width: `${percentage}%`,
-                                                        }}></div>
-                                                </div>
+                                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                                        <div
+                                                            className="h-2 rounded-full transition-all duration-300"
+                                                            style={{
+                                                                backgroundColor: emotion.color,
+                                                                width: `${percentage}%`,
+                                                            }}></div>
+                                                    </div>
                                                 </div>
                                             );
                                         })}

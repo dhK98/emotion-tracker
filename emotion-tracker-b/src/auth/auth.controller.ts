@@ -1,4 +1,4 @@
-import { Body, Controller, InternalServerErrorException, Post, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, InternalServerErrorException, Logger, Post, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from 'src/dto/auth.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 
 @Controller('auth')
 export class AuthController {
+    private readonly logger = new Logger('AuthController')
     constructor(
         private readonly usersService: UsersService,
         private readonly authService: AuthService,
@@ -29,7 +30,7 @@ export class AuthController {
             })
             return { token, user }
         } catch (error: any) {
-            console.log(error)
+            this.logger.error(error)
             throw new InternalServerErrorException(error)
         }
     }
