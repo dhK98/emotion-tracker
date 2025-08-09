@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import api from '../common/api/axios.service';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../common/auth/authStore';
+import Modal from './modal';
 
 const Login: React.FC = () => {
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
    const navigate = useNavigate();
    const setUser = useAuthStore(state => state.setUser);
+
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [modalType, setModalType] = useState<'login_failure' | 'signup_success' | 'signup_failure' | 'success' | 'error'>();
+   
 
    // 회원가입 모달 상태
    const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
@@ -26,11 +31,10 @@ const Login: React.FC = () => {
          localStorage.setItem(`access_token`, data.token);
          setUser(data.user);
          navigate('/main');
-         console.log(data.user)
       } catch (error) {
          setPassword('');
-         console.log(`effiect login failure madal`);
-         alert('로그인 실패');
+         setModalType('login_failure');
+         setIsModalOpen(true);
       }
    };
 
@@ -46,12 +50,14 @@ const Login: React.FC = () => {
    const handleSignup = async () => {
       // 유효성 검사
       if (!signupData.id || !signupData.password || !signupData.name) {
-         alert('모든 필드를 입력해주세요.');
-         return;
+         setModalType('signup_failure');
+         setIsModalOpen(true);
+         return
       }
 
       if (signupData.password !== signupData.confirmPassword) {
-         alert('비밀번호가 일치하지 않습니다.');
+         setModalType('signup_failure');
+         setIsModalOpen(true);
          return;
       }
 
@@ -67,8 +73,8 @@ const Login: React.FC = () => {
             name: '',
          });
       } catch (error) {
-         console.log('Signup failure:', error);
-         alert('회원가입 실패');
+         setModalType('signup_failure');
+         setIsModalOpen(true);
       }
    };
 
@@ -130,6 +136,11 @@ const Login: React.FC = () => {
                   </p>
                </div>
             </div>
+            <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            type={modalType}
+        />
          </div>
 
          {/* 회원가입 모달 */}
@@ -204,6 +215,11 @@ const Login: React.FC = () => {
                      </div>
                   </div>
                </div>
+               <Modal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            type={modalType}
+        />
             </div>
          )}
       </div>

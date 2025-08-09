@@ -1,5 +1,6 @@
 // src/api/axios.ts
 import axios, { AxiosInstance } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const api: AxiosInstance = axios.create({
     baseURL: 'http://localhost:3010',
