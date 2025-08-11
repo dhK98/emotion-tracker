@@ -31,6 +31,7 @@ export class EmotionService {
       emotion: createEmotionDto.emotion,
       reason: createEmotionDto.reason,
       date: createEmotionDto.date,
+      user
     });
 
     return await this.emotionRepository.save(newEmotion);
@@ -82,4 +83,5 @@ export class EmotionService {
 
     return stats;
   }
+
 }
